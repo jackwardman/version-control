@@ -1,3 +1,6 @@
 access-token
 .DS_Store
 .mygit/*
+main
+mygit
+*.txt
