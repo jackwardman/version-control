@@ -1,6 +1,5 @@
 #include "shared.h"
 
-// Function to commit changes
 void commit(const std::string& message) {
     if (!isRepositoryInitialized()) {
         std::cerr << "Error: No MyGit repository found. Run './mygit init' first.\n";
@@ -16,7 +15,13 @@ void commit(const std::string& message) {
 
     std::ostringstream commitData;
     commitData << "Commit message: " << message << "\n";
-    
+
+    // Get the parent commit (current HEAD commit)
+    std::string parentCommit = getHeadCommit();
+    if (!parentCommit.empty()) {
+        commitData << "Parent: " << parentCommit << "\n";
+    }
+
     std::string line;
     while (std::getline(indexFile, line)) {
         commitData << line << "\n";
@@ -36,10 +41,10 @@ void commit(const std::string& message) {
     commitFile << commitData.str();
     commitFile.close();
 
-    // Update HEAD to point to latest commit
+    // Update HEAD to reflect the new commit
     updateHead(commitHash);
 
-    // Clear staging area
+    // Clear the staging area
     std::ofstream clearIndex(INDEX_FILE, std::ios::trunc);
     clearIndex.close();
 

@@ -1,13 +1,15 @@
-#include "init.h"
-#include "stage.h"
 #include "commit.h"
+#include "init.h"
+#include "log.h"
+#include "stage.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         std::cerr   << "Usage:\n"
                     << "  " << argv[0] << " init\n"
                     << "  " << argv[0] << " add <filename>\n"
-                    << "  " << argv[0] << " commit <message>\n";
+                    << "  " << argv[0] << " commit <message>\n"
+                    << "  " << argv[0] << " log\n";
         return EXIT_FAILURE;
     }
     
@@ -27,6 +29,8 @@ int main(int argc, char* argv[]) {
             return EXIT_FAILURE;
         }
         commit(argv[2]);
+    } else if (command == "log") {
+        logCommits();
     }
     return 0;
 }
