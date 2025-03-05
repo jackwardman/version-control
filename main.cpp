@@ -1,3 +1,4 @@
+#include "checkout.h"
 #include "commit.h"
 #include "init.h"
 #include "log.h"
@@ -9,7 +10,8 @@ int main(int argc, char* argv[]) {
                     << "  " << argv[0] << " init\n"
                     << "  " << argv[0] << " add <filename>\n"
                     << "  " << argv[0] << " commit <message>\n"
-                    << "  " << argv[0] << " log\n";
+                    << "  " << argv[0] << " log\n"
+                    << "  " << argv[0] << " checkout <commit-hash>\n";
         return EXIT_FAILURE;
     }
     
@@ -31,6 +33,12 @@ int main(int argc, char* argv[]) {
         commit(argv[2]);
     } else if (command == "log") {
         logCommits();
+    } else if (command == "checkout") {
+        if (argc < 3) {
+            std::cerr << "Usage: " << argv[0] << " checkout <commit-hash>\n";
+            return EXIT_FAILURE;
+        }
+        checkout(argv[2]);
     }
     return 0;
 }
