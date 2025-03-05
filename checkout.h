@@ -54,3 +54,21 @@ void checkout(const std::string& commitHash) {
     updateHead(commitHash);
     std::cout << "Checked out commit: " << commitHash << "\n";
 }
+
+// Function to switch branches
+void checkoutBranch(const std::string& branchName) {
+    if (!isRepositoryInitialized()) {
+        std::cerr << "Error: No MyGit repository found. Run './mygit init' first.\n";
+        exit(EXIT_FAILURE);
+    }
+
+    std::string branchPath = REFS_DIR + "/" + branchName;
+    if (!fs::exists(branchPath)) {
+        std::cerr << "Error: Branch '" << branchName << "' does not exist.\n";
+        return;
+    }
+
+    // Update HEAD to point to the new branch
+    updateHead("ref: refs/heads/" + branchName);
+    std::cout << "Switched to branch '" << branchName << "'\n";
+}
