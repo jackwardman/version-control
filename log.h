@@ -12,7 +12,7 @@ void logCommits() {
         return;
     }
 
-    std::cout << "Commit history:\n";
+    std::cout << "Commit history:\n\n";
 
     while (!commitHash.empty()) {
         std::string commitPath = COMMITS_DIR + "/" + commitHash;
